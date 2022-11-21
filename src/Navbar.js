@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
-// import { Link } from "react-scroll";
 
 export default function Navbar() {
   const [darkMode, setDarkMode] = useState(false);
 
+  // Toggle dark/light mode
   const handleButtonClick = () => {
     setDarkMode(!darkMode);
     localStorage.setItem("mode", darkMode);
   };
 
+  // Set dark/light mode on local device
   useEffect(() => {
     if (localStorage.getItem("mode") === "false") {
       document.body.classList.add("dark");
@@ -48,11 +49,6 @@ export default function Navbar() {
             alt="Bored Ape"
           ></img>
         </div>
-        {/* <div className="nav-title">
-          <p>
-            Ceejay <br /> Xiong
-          </p>
-        </div> */}
         <div className="nav-menu">
           <p>Opensea Failed Transactions</p>
         </div>

@@ -12,6 +12,13 @@ export default function Home() {
   const api = "FF3VM3BZW5NGH5HGRT3MKIK7HMZV6JR69P";
   const totalEth = (eth.result * Math.pow(10, -18)).toFixed(3);
 
+  // Set Ethereum Address fron input
+  const onChangeAddress = (event) => {
+    event.preventDefault();
+    setAddress(event.target.value);
+  };
+
+  // Fetch ETH Balance for input ETH address
   useEffect(() => {
     get(
       `?module=account&action=balance&address=${address}&tag=latest&apikey=${api}`
@@ -23,16 +30,13 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
 
-  const onChangeAddress = (event) => {
-    event.preventDefault();
-    setAddress(event.target.value);
-  };
-
+  // Fetch transactions for ETH address
   useEffect(() => {
     get(
       `?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=1&offset=10000&sort=desc&apikey=${api}}`
     )
       .then((data) => {
+        // Sort data by failed TX and Opensea TX
         const failed = data.result.filter(
           (data) =>
             (data.isError === "1" &&
@@ -46,6 +50,7 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
 
+  // Formula for gas fee
   const totalGas = () => {
     let sum = 0;
     transactions.forEach((transaction) => {
@@ -58,7 +63,6 @@ export default function Home() {
   return (
     <>
       <div className="container home">
-        {/* <label>Ethereum Address: </label> */}
         <input
           type="text"
           name="address"
@@ -96,7 +100,6 @@ export default function Home() {
           </thead>
           <tbody>
             {transactions.map((transaction) => {
-              //   console.log(transaction);
               return (
                 <Transactions
                   key={transaction.blockNumber}
