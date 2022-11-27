@@ -27,7 +27,9 @@ body {
   --blue-2: #9ED2C6;
   --blue-3: #2146C7;
   /* Red */
-  --red--1: #F65A83;
+  --red-1: #F65A83;
+  /* Yellow */
+  --yellow-1: #dcdc31;
 }
 
 /* Dark Mode Colors */
@@ -120,11 +122,12 @@ body {
   padding: 0 3rem;
 }
 .download-table-xls-button {
+  color: black;
   font-size: 1.25vw;
   padding: 1vw 1vw;
-  border: 1px black solid;
+  border: 0px black solid;
   border-radius: 30px;
-  background-color: var(--blue-1);
+  background-color: var(--yellow-1);
   cursor: pointer;
   width: auto;
 }
@@ -176,7 +179,7 @@ body {
   color: var(--blue-3);
 }
 tfoot td {
-  background-color: var(--red--1);
+  background-color: var(--red-1);
   font-weight: bold;
 }
 
