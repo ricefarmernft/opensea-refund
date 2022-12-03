@@ -12,6 +12,13 @@ export default function Home() {
   const api = "FF3VM3BZW5NGH5HGRT3MKIK7HMZV6JR69P";
   const totalEth = (eth.result * Math.pow(10, -18)).toFixed(3);
 
+  const openseaAddresses = [
+    "0x7f268357a8c2552623316e2562d90e642bb538e5",
+    "0x00000000006c3852cbef3e08e8df289169ede581",
+    "0x00000000006cee72100d161c57ada5bb2be1ca79",
+    "0x7be8076f4ea4a4ad08075c2508e481d6c946d12b",
+  ];
+
   // Set Ethereum Address fron input
   const onChangeAddress = (event) => {
     event.preventDefault();
@@ -37,12 +44,13 @@ export default function Home() {
     )
       .then((data) => {
         // Sort data by failed TX and Opensea TX
+        console.log(data.result);
         const failed = data.result.filter(
-          (data) =>
-            (data.isError === "1" &&
-              data.to.includes("0x7f268357a8c2552623316e2562d90e642bb538e5")) ||
-            (data.isError === "1" &&
-              data.to.includes("0x7be8076f4ea4a4ad08075c2508e481d6c946d12b"))
+          (tx) =>
+            (tx.isError === "1" && tx.to.includes(openseaAddresses[0])) ||
+            (tx.isError === "1" && tx.to.includes(openseaAddresses[1])) ||
+            (tx.isError === "1" && tx.to.includes(openseaAddresses[2])) ||
+            (tx.isError === "1" && tx.to.includes(openseaAddresses[3]))
         );
         setTransactions(failed);
       })
@@ -59,6 +67,8 @@ export default function Home() {
     });
     return sum;
   };
+
+  console.log(transactions);
 
   return (
     <>
