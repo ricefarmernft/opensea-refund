@@ -115,6 +115,9 @@ body {
   background-color: var(--blue-2);
   flex-grow: 1;
 }
+.home input::placeholder {
+  color: #4f4a4a;
+}
 .home input::selection {
   background-color: #F2F2F2;
 }

@@ -68,8 +68,6 @@ export default function Home() {
     return sum;
   };
 
-  console.log(transactions);
-
   return (
     <>
       <div className="container home">
