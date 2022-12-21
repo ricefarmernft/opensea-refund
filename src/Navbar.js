@@ -50,7 +50,7 @@ export default function Navbar() {
           ></img>
         </div>
         <div className="nav-menu">
-          <p>Opensea Failed Transactions</p>
+          <p>Opensea Refund</p>
         </div>
         <div className="nav-icons">
           <a
