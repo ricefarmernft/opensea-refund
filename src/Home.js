@@ -6,6 +6,11 @@ import ReactHTMLTableToExcel from "react-html-table-to-excel";
 export default function Home() {
   const [eth, setEth] = useState([]);
   const [transactions, setTransactions] = useState([]);
+
+  const [filteredTransactions, setFilteredTransactions] = useState([]);
+
+  const [sort, setSort] = useState(true);
+
   const [address, setAddress] = useState();
 
   const { get } = useFetch("https://api.etherscan.io/api");
@@ -44,7 +49,6 @@ export default function Home() {
     )
       .then((data) => {
         // Sort data by failed TX and Opensea TX
-        console.log(data.result);
         const failed = data.result.filter(
           (tx) =>
             (tx.isError === "1" && tx.to.includes(openseaAddresses[0])) ||
@@ -53,15 +57,38 @@ export default function Home() {
             (tx.isError === "1" && tx.to.includes(openseaAddresses[3]))
         );
         setTransactions(failed);
+        setFilteredTransactions(failed);
       })
       .catch((error) => console.log("Could not load Eth balance", error));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
 
+  // Sort TX past 30 days
+  useEffect(() => {
+    if (!sort) {
+      setFilteredTransactions(
+        transactions.filter((transaction) => {
+          const thirtyDaysDate = new Date();
+          thirtyDaysDate.setDate(thirtyDaysDate.getDate() - 30);
+
+          const txDate = new Date(transaction.timeStamp * 1000);
+
+          return txDate > thirtyDaysDate;
+        })
+      );
+    } else {
+      setFilteredTransactions(transactions);
+    }
+  }, [sort]);
+
+  const handleDateSort = () => {
+    setSort(!sort);
+  };
+
   // Formula for gas fee
   const totalGas = () => {
     let sum = 0;
-    transactions.forEach((transaction) => {
+    filteredTransactions.forEach((transaction) => {
       sum =
         transaction.gasPrice * transaction.gasUsed * Math.pow(10, -18) + sum;
     });
@@ -82,7 +109,7 @@ export default function Home() {
       </div>
       <div className="container total">
         <p>
-          Total Gas Spent on Failed Opensea Tx's:{" "}
+          Gas Spent on Failed Opensea Tx's:{" "}
           <strong>{totalGas().toFixed(5)} Ξ</strong>
         </p>
       </div>
@@ -96,18 +123,22 @@ export default function Home() {
           buttonText="Download as XLS"
         />
       </div>
+      <div className="container filters">
+        <button className="btn-month" onClick={handleDateSort}>
+          {sort ? "Sort 30 Days" : "Show All"}
+        </button>
+      </div>
       <div className="container transactions">
         <table className="tx-table" id="table-to-xls">
           <thead>
             <tr>
               <th>Date</th>
               <th>Tx Hash</th>
-              <th>Gas Fee</th>
-              <th>Link</th>
+              <th>Gas Fee Ξ</th>
             </tr>
           </thead>
           <tbody>
-            {transactions.map((transaction) => {
+            {filteredTransactions.map((transaction) => {
               return (
                 <Transactions
                   key={transaction.blockNumber}
@@ -119,7 +150,7 @@ export default function Home() {
           <tfoot>
             <tr>
               <th colSpan="2">Total Fee :</th>
-              <td>{totalGas().toFixed(5)}Ξ</td>
+              <td>{totalGas().toFixed(5)}</td>
             </tr>
           </tfoot>
         </table>
