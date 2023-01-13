@@ -1,9 +1,9 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
 }
 body {
   margin: 0;
@@ -21,29 +21,32 @@ body {
 :root {
   /* Black */
   --black-0: #000000;
+  --black-1: #262626;
   /* White */
-  --white-0: #FFFFFF;
-  --white-1: #F2F2F2;
-  --white-2: #DDDDDD;
+  --white-0: #ffffff;
+  --white-1: #f2f2f2;
+  --white-2: #eceaea;
   /* Blue */
-  --blue-0: #0008C1;
-  --blue-1: #54BAB9;
-  --blue-2: #9ED2C6;
-  --blue-3: #2146C7;
+  --blue-0: #0008c1;
+  --blue-1: #54bab9;
+  --blue-2: #9ed2c6;
+  --blue-3: #2146c7;
   /* Red */
-  --red-1: #F65A83;
+  --red-1: #f65a83;
   /* Yellow */
   --yellow-1: #dcdc31;
 }
 
 /* Dark Mode Colors */
 .dark {
-  color: #FFFFFF;
-  --black-0: #FFFFFF;
+  color: #ffffff;
+  --black-0: #ffffff;
+  --black-1: #f2f2f2;
   --white-0: #000000;
   --white-1: #3b3b3b;
-  --blue-0: #B8E8FC;
-  --blue-3: #CDFCF6;
+  --white-2: #5e5c5c;
+  --blue-0: #b8e8fc;
+  --blue-3: #cdfcf6;
 }
 
 .container {
@@ -74,7 +77,7 @@ body {
   background-color: var(--white-1);
   box-shadow: 0px 3px 9px var(--black-0);
 }
-.nav-logo{
+.nav-logo {
   padding: 1.2rem;
 }
 .nav-logo-item {
@@ -85,13 +88,13 @@ body {
   font-size: 2.4rem;
   font-weight: bold;
 }
-.nav-menu{
+.nav-menu {
   font-size: 2.4rem;
   font-weight: bold;
   flex-grow: 1;
   text-align: center;
 }
-.nav-icons{
+.nav-icons {
   display: flex;
   gap: 1.4rem;
   padding-right: 2rem;
@@ -107,14 +110,14 @@ body {
   align-items: center;
 }
 .home p {
-  font-size: 2vw;
+  font-size: 1.6rem;
 }
 .home input {
   border: none;
-  border-radius: 2rem;
+  border-radius: 15px;
   outline: none;
-  font-size: 2vw;
-  padding: 1rem;
+  font-size: 2.4rem;
+  padding: 10px;
   margin-right: 2rem;
   background-color: var(--blue-2);
   flex-grow: 1;
@@ -123,15 +126,15 @@ body {
   color: #4f4a4a;
 }
 .home input::selection {
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
 }
 .excel {
-  padding: 0 3rem;
+  padding-bottom: 0;
 }
 .download-table-xls-button {
   color: black;
-  font-size: 1.25vw;
-  padding: 1vw 1vw;
+  font-size: 1.4rem;
+  padding: 10px 10px;
   border: 0px black solid;
   border-radius: 30px;
   background-color: var(--yellow-1);
@@ -141,10 +144,29 @@ body {
 .download-table-xls-button:hover {
   background-color: var(--blue-2);
 }
+.filters {
+  padding-bottom: 0;
+}
+.btn-month {
+  color: var(--black-0);
+  font-size: 1.4rem;
+  padding: 4px 15px;
+  border: 1px var(--black-1) solid;
+  border-radius: 6px;
+  background-color: var(--white-2);
+  box-shadow: 0 2px 0 rgb(0 0 0 / 3%);
+  cursor: pointer;
+  width: 125px;
+  transition: all 0.3s;
+}
+.btn-month:hover {
+  color: var(--blue-0);
+  border: 1px var(--blue-0) solid;
+}
 /* Total */
 .total {
   justify-content: center;
-  font-size: 2vw;
+  font-size: 1.8rem;
   padding-top: 0;
   padding-bottom: 0;
 }
@@ -153,35 +175,36 @@ body {
 }
 /* Transactions */
 .transactions {
-  font-size: 1.5vw;
-  overflow-x:auto;
+  font-size: 1.2rem;
+  overflow-x: auto;
 }
 .tx-table {
   width: 100%;
   border-collapse: collapse;
 }
 .tx-table th {
-  padding-top: 1.2rem;
-  padding-bottom: 1.2rem;
+  padding-top: 12px;
+  padding-bottom: 12px;
   background-color: var(--blue-1);
 }
-.tx-table td, .tx-table th {
+.tx-table td,
+.tx-table th {
   border: 1px solid #808080;
-  padding: .8rem;
+  padding: 8px;
 }
-.tx-table tr:nth-child(even){
+.tx-table tr:nth-child(even) {
   background-color: var(--white-1);
+}
+.transaction td {
+  font-size: 1.1rem;
 }
 .time {
   text-align: center;
 }
-.hash {
-  font-size: 1.25vw;
-}
-.link a{
+.hash a {
   color: var(--blue-0);
 }
-.link a:hover{
+.hash a:hover {
   text-decoration: none;
   color: var(--blue-3);
 }
@@ -190,6 +213,7 @@ tfoot td {
   font-weight: bold;
 }
 
+/* Media Queries */
 @media (max-width: 480px) {
   .container {
     padding: 1rem 1rem;
@@ -204,7 +228,7 @@ tfoot td {
     width: 6rem;
     height: 6rem;
   }
-  .nav-icons{
+  .nav-icons {
     gap: 1.2rem;
     padding-right: 1.4rem;
     padding-left: 1.4rem;
@@ -212,9 +236,6 @@ tfoot td {
   .nav-icons svg {
     width: 1.6rem;
     height: 1.6rem;
-  }
-  .excel {
-    padding: 0 1rem;
   }
   .total {
     padding-top: 0;
@@ -224,5 +245,34 @@ tfoot td {
     width: 1.6rem;
     height: 1.6rem;
   }
+  /* Main */
+  .home p {
+    font-size: 1.2rem;
+  }
+  .total {
+    font-size: 1.2rem;
+  }
+}
 
+@media (max-width: 655px) {
+  /* Home */
+  .home input {
+    font-size: 1.4rem;
+    margin-right: 1rem;
+    padding: 8px;
+  }
+  .download-table-xls-button {
+    font-size: 1rem;
+    padding: 5px;
+  }
+  .btn-month {
+    font-size: 1rem;
+    width: 85px;
+    padding: 4px 10px;
+  }
+}
+@media (max-width: 655px) and (min-width: 480px) {
+  .container {
+    padding: 1rem 1.5rem;
+  }
 }
