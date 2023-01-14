@@ -1,6 +1,7 @@
 import useFetch from "../hooks/useFetch";
 import { useEffect, useState } from "react";
 import Transactions from "./Transactions";
+import Loader from "./Loader";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import Web3 from "web3";
 
@@ -9,6 +10,7 @@ const web3 = new Web3(
 );
 
 export default function Home() {
+  const [loading, setLoading] = useState(false);
   const [eth, setEth] = useState([]);
   const [transactions, setTransactions] = useState([]);
 
@@ -32,7 +34,6 @@ export default function Home() {
   // Get address from ENS function
   async function getEnsOwner(ens) {
     const owner = await web3.eth.ens.getAddress(ens);
-    console.log(owner);
     setAddress(owner);
   }
 
@@ -42,11 +43,14 @@ export default function Home() {
     const input = event.target.value;
     if (input.endsWith(".eth")) {
       getEnsOwner(input);
+      setLoading(true);
     } else if (input.length === 42) {
       setAddress(input);
+      setLoading(true);
     } else {
       console.log("Input not valid.");
       setAddress();
+      setLoading(false);
     }
   };
 
@@ -69,18 +73,21 @@ export default function Home() {
     )
       .then((data) => {
         // Sort data by failed TX and Opensea TX
-        const failed = data?.result?.filter(
+        const failed = data.result.filter(
           (tx) =>
             (tx.isError === "1" && tx.to.includes(openseaAddresses[0])) ||
             (tx.isError === "1" && tx.to.includes(openseaAddresses[1])) ||
             (tx.isError === "1" && tx.to.includes(openseaAddresses[2])) ||
             (tx.isError === "1" && tx.to.includes(openseaAddresses[3]))
         );
+        setLoading(false);
         setTransactions(failed);
         setFilteredTransactions(failed);
       })
       .catch((error) => {
         console.log("Could not load Eth balance", error);
+        setTransactions([]);
+        setFilteredTransactions([]);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
@@ -136,48 +143,53 @@ export default function Home() {
           <strong>{totalGas().toFixed(5)} Ξ</strong>
         </p>
       </div>
-      <div className="container excel">
-        <ReactHTMLTableToExcel
-          id="test-table-xls-button"
-          className="container download-table-xls-button"
-          table="table-to-xls"
-          filename="OSfailedtxs"
-          sheet="tablexls"
-          buttonText="Download as XLS"
-        />
-      </div>
-      <div className="container filters">
-        <button className="btn-month" onClick={handleDateSort}>
-          {sort ? "Sort 30 Days" : "Show All"}
-        </button>
-      </div>
-      <div className="container transactions">
-        <table className="tx-table" id="table-to-xls">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Tx Hash</th>
-              <th>Gas Fee Ξ</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredTransactions.map((transaction) => {
-              return (
-                <Transactions
-                  key={transaction.blockNumber}
-                  transaction={transaction}
-                />
-              );
-            })}
-          </tbody>
-          <tfoot>
-            <tr>
-              <th colSpan="2">Total Fee :</th>
-              <td>{totalGas().toFixed(5)}</td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
+      {loading && <Loader />}
+      {address && !loading && (
+        <div className="body">
+          <div className="container excel">
+            <ReactHTMLTableToExcel
+              id="test-table-xls-button"
+              className="container download-table-xls-button"
+              table="table-to-xls"
+              filename="OSfailedtxs"
+              sheet="tablexls"
+              buttonText="Download as XLS"
+            />
+          </div>
+          <div className="container filters">
+            <button className="btn-month" onClick={handleDateSort}>
+              {sort ? "Sort 30 Days" : "Show All"}
+            </button>
+          </div>
+          <div className="container transactions">
+            <table className="tx-table" id="table-to-xls">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Tx Hash</th>
+                  <th>Gas Fee Ξ</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredTransactions.map((transaction) => {
+                  return (
+                    <Transactions
+                      key={transaction.blockNumber}
+                      transaction={transaction}
+                    />
+                  );
+                })}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th colSpan="2">Total Fee :</th>
+                  <td>{totalGas().toFixed(5)}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      )}
     </>
   );
 }

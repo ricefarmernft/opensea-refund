@@ -13,9 +13,11 @@ body {
 html {
   font-size: 62.5%;
 }
-body {
-  background-color: var(--white-0);
-}
+/* body {
+  background-image: url(/src/images/stacked-waves-haikei-os.svg);
+  background-size: cover;
+  background-repeat: repeat;
+} */
 
 /* Colors */
 :root {
@@ -162,6 +164,12 @@ body {
 .btn-month:hover {
   color: var(--blue-0);
   border: 1px var(--blue-0) solid;
+}
+.loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 /* Total */
 .total {
