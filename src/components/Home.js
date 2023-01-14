@@ -1,7 +1,12 @@
-import useFetch from "./useFetch";
+import useFetch from "../hooks/useFetch";
 import { useEffect, useState } from "react";
 import Transactions from "./Transactions";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
+import Web3 from "web3";
+
+const web3 = new Web3(
+  "https://eth-mainnet.g.alchemy.com/v2/0ByceosjiOQZ9Ww_sr5oCCJL6Nmi8q1S"
+);
 
 export default function Home() {
   const [eth, setEth] = useState([]);
@@ -24,10 +29,25 @@ export default function Home() {
     "0x7be8076f4ea4a4ad08075c2508e481d6c946d12b",
   ];
 
-  // Set Ethereum Address fron input
+  // Get address from ENS function
+  async function getEnsOwner(ens) {
+    const owner = await web3.eth.ens.getAddress(ens);
+    console.log(owner);
+    setAddress(owner);
+  }
+
+  // Set Ethereum Address from input
   const onChangeAddress = (event) => {
     event.preventDefault();
-    setAddress(event.target.value);
+    const input = event.target.value;
+    if (input.endsWith(".eth")) {
+      getEnsOwner(input);
+    } else if (input.length === 42) {
+      setAddress(input);
+    } else {
+      console.log("Input not valid.");
+      setAddress();
+    }
   };
 
   // Fetch ETH Balance for input ETH address
@@ -49,7 +69,7 @@ export default function Home() {
     )
       .then((data) => {
         // Sort data by failed TX and Opensea TX
-        const failed = data.result.filter(
+        const failed = data?.result?.filter(
           (tx) =>
             (tx.isError === "1" && tx.to.includes(openseaAddresses[0])) ||
             (tx.isError === "1" && tx.to.includes(openseaAddresses[1])) ||
@@ -59,7 +79,9 @@ export default function Home() {
         setTransactions(failed);
         setFilteredTransactions(failed);
       })
-      .catch((error) => console.log("Could not load Eth balance", error));
+      .catch((error) => {
+        console.log("Could not load Eth balance", error);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
 
@@ -79,6 +101,7 @@ export default function Home() {
     } else {
       setFilteredTransactions(transactions);
     }
+    //eslint-disable-next-line
   }, [sort]);
 
   const handleDateSort = () => {
@@ -102,7 +125,7 @@ export default function Home() {
           type="text"
           name="address"
           id="address"
-          placeholder="Ethereum Address"
+          placeholder="Ethereum Address / ENS"
           onChange={onChangeAddress}
         ></input>
         <p>Balance: {totalEth > 0 ? totalEth : 0} Ξ</p>

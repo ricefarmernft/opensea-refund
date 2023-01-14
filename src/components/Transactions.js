@@ -23,6 +23,7 @@ export default function Transactions(props) {
     } else {
       setHashString(hash);
     }
+    //eslint-disable-next-line
   }, []);
 
   return (
