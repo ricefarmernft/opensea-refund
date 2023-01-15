@@ -212,6 +212,7 @@ body {
   text-align: center;
 }
 .hash a {
+  font-size: 1.2rem;
   color: var(--blue-0);
   text-decoration: underline;
   transition: all 0.3s;
@@ -262,6 +263,9 @@ tfoot td {
     font-size: 1.2rem;
   }
   .transactions {
+    font-size: 1.1rem;
+  }
+  .hash a {
     font-size: 1.1rem;
   }
 }
