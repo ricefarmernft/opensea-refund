@@ -261,6 +261,9 @@ tfoot td {
   .total {
     font-size: 1.2rem;
   }
+  .transactions {
+    font-size: 1.1rem;
+  }
 }
 
 @media (max-width: 655px) {
