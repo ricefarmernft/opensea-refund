@@ -127,6 +127,20 @@ export default function Home() {
 
   return (
     <>
+      <div className="container instructions">
+        <p>
+          Input your ENS or Ethereum Address to receive your Opensea Refund
+          Total. Copy or download the table and forward it to the{" "}
+          <a
+            href="https://support.opensea.io/hc/en-us/requests/new"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Opensea Help Center
+          </a>{" "}
+          to receive your refund.
+        </p>
+      </div>
       <div className="container home">
         <input
           type="text"

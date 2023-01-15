@@ -1,10 +1,18 @@
 import React from "react";
-import { Spin } from "antd";
+import { Spin, ConfigProvider } from "antd";
 
 const Loader = () => {
   return (
     <div className="loader">
-      <Spin size="large" tip="Loading..." />
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: "#eb2f96",
+          },
+        }}
+      >
+        <Spin size="large" tip="Loading..." />
+      </ConfigProvider>
     </div>
   );
 };

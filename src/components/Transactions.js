@@ -12,7 +12,7 @@ export default function Transactions(props) {
 
   // Truncate TX hash
   useEffect(() => {
-    if (window.innerWidth <= 655 && window.innerWidth > 530) {
+    if (window.innerWidth <= 700 && window.innerWidth > 530) {
       setHashString(hash.substring(0, 45) + "...");
     } else if (window.innerWidth <= 530 && window.innerWidth > 390) {
       setHashString(hash.substring(0, 30) + "...");

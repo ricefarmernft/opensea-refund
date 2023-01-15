@@ -13,11 +13,16 @@ body {
 html {
   font-size: 62.5%;
 }
-/* body {
-  background-image: url(/src/images/stacked-waves-haikei-os.svg);
-  background-size: cover;
-  background-repeat: repeat;
-} */
+body {
+  min-height: 100vh;
+  background-image: url(/src/images/stacked-waves-haikei-osp.png);
+  background-size: 100vw 100%;
+  background-repeat: no-repeat;
+  background-color: var(--blue-4);
+}
+::selection {
+  background-color: #f2f2f2;
+}
 
 /* Colors */
 :root {
@@ -33,10 +38,12 @@ html {
   --blue-1: #54bab9;
   --blue-2: #9ed2c6;
   --blue-3: #2146c7;
+  --blue-4: #7cb5a8;
+  --blue-5: #b3dbd1;
+  --blue-6: #bde0d7;
   /* Red */
-  --red-1: #f65a83;
-  /* Yellow */
-  --yellow-1: #dcdc31;
+  --red-1: #eb2f96;
+  --red-2: #f759ab;
 }
 
 /* Dark Mode Colors */
@@ -57,56 +64,42 @@ html {
 }
 
 /* Navbar */
-.dark-mode {
-  position: fixed;
-  right: 0;
-  padding-top: 1rem;
-  padding-right: 1rem;
-}
-.dark-mode-icon {
-  fill: var(--black-0);
-  width: 2.4rem;
-  height: 2.4rem;
-  cursor: pointer;
-}
-.dark-mode button {
-  border: none;
-  background: none;
-}
 .navbar {
-  padding: 0;
   align-items: center;
-  background-color: var(--white-1);
-  box-shadow: 0px 3px 9px var(--black-0);
-}
-.nav-logo {
-  padding: 1.2rem;
-}
-.nav-logo-item {
-  width: 8rem;
-  height: 8rem;
-}
-.nav-title {
-  font-size: 2.4rem;
-  font-weight: bold;
 }
 .nav-menu {
   font-size: 2.4rem;
-  font-weight: bold;
+  font-weight: 240;
   flex-grow: 1;
-  text-align: center;
+  text-align: left;
 }
 .nav-icons {
   display: flex;
   gap: 1.4rem;
-  padding-right: 2rem;
 }
 .nav-icons svg {
-  fill: var(--black-0);
+  fill: var(--red-1);
   width: 2.4rem;
   height: 2.4rem;
+  transition: all 0.3s;
 }
-/* Home */
+.nav-icons svg:hover {
+  fill: var(--red-2);
+}
+/* Body */
+.instructions {
+  font-size: 1.1rem;
+  font-weight: 300;
+  padding: 0 3rem;
+}
+.instructions a {
+  text-decoration: none;
+  color: var(--blue-0);
+  transition: all 0.3s;
+}
+.instructions a:hover {
+  color: var(--blue-3);
+}
 .home {
   justify-content: space-between;
   align-items: center;
@@ -115,10 +108,11 @@ html {
   font-size: 1.6rem;
 }
 .home input {
-  border: none;
+  border: 1px solid var(--black-0);
   border-radius: 15px;
   outline: none;
   font-size: 2.4rem;
+  font-weight: 220;
   padding: 10px;
   margin-right: 2rem;
   background-color: var(--blue-2);
@@ -126,25 +120,27 @@ html {
 }
 .home input::placeholder {
   color: #4f4a4a;
-}
-.home input::selection {
-  background-color: #f2f2f2;
+  font-weight: 200;
 }
 .excel {
   padding-bottom: 0;
 }
 .download-table-xls-button {
-  color: black;
+  color: var(--black-0);
   font-size: 1.4rem;
+  font-weight: 250;
   padding: 10px 10px;
   border: 0px black solid;
   border-radius: 30px;
-  background-color: var(--yellow-1);
+  background-color: var(--red-1);
   cursor: pointer;
   width: auto;
+  transition: all 0.3s;
 }
 .download-table-xls-button:hover {
-  background-color: var(--blue-2);
+  color: var(--blue-0);
+  background-color: var(--red-2);
+  outline: var(--blue-0) 1px solid;
 }
 .filters {
   padding-bottom: 0;
@@ -155,7 +151,7 @@ html {
   padding: 4px 15px;
   border: 1px var(--black-1) solid;
   border-radius: 6px;
-  background-color: var(--white-2);
+  background-color: var(--blue-5);
   box-shadow: 0 2px 0 rgb(0 0 0 / 3%);
   cursor: pointer;
   width: 125px;
@@ -164,6 +160,7 @@ html {
 .btn-month:hover {
   color: var(--blue-0);
   border: 1px var(--blue-0) solid;
+  background-color: var(--blue-6);
 }
 .loader {
   position: fixed;
@@ -175,6 +172,7 @@ html {
 .total {
   justify-content: center;
   font-size: 1.8rem;
+  font-weight: 220;
   padding-top: 0;
   padding-bottom: 0;
 }
@@ -189,28 +187,23 @@ html {
 .tx-table {
   width: 100%;
   border-collapse: collapse;
+  box-shadow: 0px 0px 8px var(--black-0);
 }
 .tx-table th {
-  padding-top: 12px;
-  padding-bottom: 12px;
   background-color: var(--blue-1);
 }
 .tx-table td,
 .tx-table th {
-  border: 1px solid #808080;
+  border: 1px solid var(--black-0);
   padding: 8px;
-}
-.tx-table tr:nth-child(even) {
-  background-color: var(--white-1);
-}
-.transaction td {
-  font-size: 1.1rem;
 }
 .time {
   text-align: center;
 }
 .hash a {
   color: var(--blue-0);
+  text-decoration: underline;
+  transition: all 0.3s;
 }
 .hash a:hover {
   text-decoration: none;
@@ -225,9 +218,6 @@ tfoot td {
 @media (max-width: 480px) {
   .container {
     padding: 1rem 1rem;
-  }
-  .navbar {
-    padding: 0;
   }
   .nav-menu {
     font-size: 2rem;
