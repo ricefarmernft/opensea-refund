@@ -1,3 +1,4 @@
+/* General */
 * {
   margin: 0;
   padding: 0;
@@ -12,16 +13,21 @@ body {
 }
 html {
   font-size: 62.5%;
+  min-height: -webkit-fill-available;
 }
 body {
-  min-height: 100vh;
+  min-height: -webkit-fill-available;
   background-image: url(/src/images/stacked-waves-haikei-osp.png);
   background-size: 100vw 100%;
   background-repeat: no-repeat;
-  background-color: var(--blue-4);
+  background-color: var(--aqua-2);
 }
 ::selection {
   background-color: #f2f2f2;
+}
+.container {
+  display: flex;
+  padding: 2rem 3rem;
 }
 
 /* Colors */
@@ -32,16 +38,17 @@ body {
   --white-0: #ffffff;
   /* Blue */
   --blue-0: #0008c1;
-  --blue-1: #54bab9;
-  --blue-2: #9ed2c6;
-  --blue-3: #2146c7;
-  --blue-4: #7cb5a8;
-  --blue-5: #b3dbd1;
-  --blue-6: #bde0d7;
-  /* Red */
-  --red-1: #eb2f96;
-  --red-2: #f759ab;
-  --red-3: #ff85c0;
+  --blue-2: #2146c7;
+  /* Aqua */
+  --aqua-1: #54bab9;
+  --aqua-2: #7cb5a8;
+  --aqua-3: #9ed2c6;
+  --aqua-4: #b3dbd1;
+  --aqua-5: #bde0d7;
+  /* Pink */
+  --pink-1: #eb2f96;
+  --pink-2: #f759ab;
+  --pink-3: #ff85c0;
 }
 
 /* Dark Mode Colors */
@@ -50,13 +57,8 @@ body {
   --black-0: #ffffff;
   --white-0: #000000;
   --blue-0: #b8e8fc;
-  --blue-3: #cdfcf6;
+  --blue-2: #cdfcf6;
 } */
-
-.container {
-  display: flex;
-  padding: 2rem 3rem;
-}
 
 /* Navbar */
 .navbar {
@@ -73,13 +75,13 @@ body {
   gap: 1.4rem;
 }
 .nav-icons svg {
-  fill: var(--red-1);
+  fill: var(--pink-1);
   width: 2.4rem;
   height: 2.4rem;
   transition: all 0.3s;
 }
 .nav-icons svg:hover {
-  fill: var(--red-2);
+  fill: var(--pink-2);
 }
 /* Body */
 .instructions {
@@ -93,7 +95,7 @@ body {
   transition: all 0.3s;
 }
 .instructions a:hover {
-  color: var(--blue-3);
+  color: var(--blue-2);
 }
 .home {
   justify-content: space-between;
@@ -101,6 +103,7 @@ body {
 }
 .home p {
   font-size: 1.6rem;
+  font-weight: 250;
 }
 .home input {
   border: 1px solid var(--black-0);
@@ -110,12 +113,23 @@ body {
   font-weight: 220;
   padding: 10px;
   margin-right: 2rem;
-  background-color: var(--blue-2);
+  background-color: var(--aqua-3);
   flex-grow: 1;
 }
 .home input::placeholder {
   color: #4f4a4a;
   font-weight: 200;
+}
+.total {
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 220;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.total span {
+  color: red;
+  font-weight: 300;
 }
 .filters {
   padding-bottom: 0;
@@ -130,14 +144,14 @@ body {
   padding: 10px 10px;
   border: 0px black solid;
   border-radius: 30px;
-  background-color: var(--red-1);
+  background-color: var(--pink-1);
   cursor: pointer;
   width: auto;
   transition: all 0.3s;
 }
 .btn-copy:hover {
   color: var(--white-0);
-  background-color: var(--red-2);
+  background-color: var(--pink-2);
   outline: var(--white-0) 1px solid;
 }
 .btn-copy-copied {
@@ -147,13 +161,13 @@ body {
   padding: 10px 10px;
   border: 0px black solid;
   border-radius: 30px;
-  background-color: var(--red-2);
+  background-color: var(--pink-2);
   cursor: pointer;
   width: auto;
   transition: all 0.3s;
 }
 .btn-copy-copied:hover {
-  background-color: var(--red-3);
+  background-color: var(--pink-3);
 }
 .btn-month {
   color: var(--black-0);
@@ -161,7 +175,7 @@ body {
   padding: 4px 15px;
   border: 1px var(--black-0) solid;
   border-radius: 6px;
-  background-color: var(--blue-5);
+  background-color: var(--aqua-4);
   box-shadow: 0 2px 0 rgb(0 0 0 / 3%);
   cursor: pointer;
   width: 125px;
@@ -171,7 +185,7 @@ body {
 .btn-month:hover {
   color: var(--blue-0);
   border: 1px var(--blue-0) solid;
-  background-color: var(--blue-6);
+  background-color: var(--aqua-5);
 }
 .loader {
   position: fixed;
@@ -179,29 +193,18 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-/* Total */
-.total {
-  justify-content: center;
-  font-size: 1.8rem;
-  font-weight: 220;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-.total strong {
-  color: red;
-}
-/* Transactions */
-.transactions {
-  font-size: 1.2rem;
-  overflow-x: auto;
-}
+/* Transactions Table */
 .tx-table {
   width: 100%;
   border-collapse: collapse;
   box-shadow: 0px 0px 8px var(--black-0);
 }
+.transactions {
+  font-size: 1.2rem;
+  overflow-x: auto;
+}
 .tx-table th {
-  background-color: var(--blue-1);
+  background-color: var(--aqua-1);
 }
 .tx-table td,
 .tx-table th {
@@ -211,32 +214,39 @@ body {
 .time {
   text-align: center;
 }
+.hash {
+  word-break: break-all;
+}
 .hash a {
-  font-size: 1.2rem;
   color: var(--blue-0);
   text-decoration: underline;
   transition: all 0.3s;
 }
 .hash a:hover {
   text-decoration: none;
-  color: var(--blue-3);
+  color: var(--blue-2);
 }
-tfoot td {
-  background-color: var(--red-1);
+.th-empty {
+  border-right: none !important;
+}
+.th-fee {
+  border-left: none !important;
+}
+.th-gas {
+  background-color: var(--pink-1) !important;
   font-weight: bold;
+  text-align: left;
 }
 
 /* Media Queries */
 @media (max-width: 480px) {
+  /* General */
   .container {
     padding: 1rem 1rem;
   }
+  /* Navbar */
   .nav-menu {
     font-size: 2rem;
-  }
-  .nav-logo-item {
-    width: 6rem;
-    height: 6rem;
   }
   .nav-icons {
     gap: 1.2rem;
@@ -247,35 +257,33 @@ tfoot td {
     width: 2rem;
     height: 2rem;
   }
-  .total {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-  /* Main */
+  /* Body */
   .home p {
     font-size: 1.2rem;
   }
   .total {
     font-size: 1.2rem;
   }
+  /* Transactions Table */
   .transactions {
-    font-size: 1.1rem;
-  }
-  .hash a {
     font-size: 1.1rem;
   }
 }
 
 @media (max-width: 655px) {
-  /* Home */
+  /* Body */
   .home input {
     font-size: 1.4rem;
     margin-right: 1rem;
     padding: 8px;
   }
-  .download-table-xls-button {
-    font-size: 1rem;
-    padding: 5px;
+  .btn-copy {
+    font-size: 1.2rem;
+    padding: 8px;
+  }
+  .btn-copy-copied {
+    font-size: 1.2rem;
+    padding: 8px;
   }
   .btn-month {
     font-size: 1rem;
@@ -284,6 +292,7 @@ tfoot td {
   }
 }
 @media (max-width: 655px) and (min-width: 480px) {
+  /* General */
   .container {
     padding: 1rem 1.5rem;
   }
