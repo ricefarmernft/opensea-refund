@@ -1,22 +1,22 @@
 import { useState, useEffect } from "react";
 
 export default function Navbar() {
-  const [darkMode, setDarkMode] = useState(false);
+  // const [darkMode, setDarkMode] = useState(false);
 
   // Toggle dark/light mode
-  const handleButtonClick = () => {
-    setDarkMode(!darkMode);
-    localStorage.setItem("mode", darkMode);
-  };
+  // const handleButtonClick = () => {
+  //   setDarkMode(!darkMode);
+  //   localStorage.setItem("mode", darkMode);
+  // };
 
   // Set dark/light mode on local device
-  useEffect(() => {
-    if (localStorage.getItem("mode") === "false") {
-      document.body.classList.add("dark");
-    } else {
-      document.body.classList.remove("dark");
-    }
-  }, [darkMode]);
+  // useEffect(() => {
+  //   if (localStorage.getItem("mode") === "false") {
+  //     document.body.classList.add("dark");
+  //   } else {
+  //     document.body.classList.remove("dark");
+  //   }
+  // }, [darkMode]);
 
   return (
     <>

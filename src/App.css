@@ -28,11 +28,8 @@ body {
 :root {
   /* Black */
   --black-0: #000000;
-  --black-1: #262626;
   /* White */
   --white-0: #ffffff;
-  --white-1: #f2f2f2;
-  --white-2: #eceaea;
   /* Blue */
   --blue-0: #0008c1;
   --blue-1: #54bab9;
@@ -44,19 +41,17 @@ body {
   /* Red */
   --red-1: #eb2f96;
   --red-2: #f759ab;
+  --red-3: #ff85c0;
 }
 
 /* Dark Mode Colors */
-.dark {
+/* .dark {
   color: #ffffff;
   --black-0: #ffffff;
-  --black-1: #f2f2f2;
   --white-0: #000000;
-  --white-1: #3b3b3b;
-  --white-2: #5e5c5c;
   --blue-0: #b8e8fc;
   --blue-3: #cdfcf6;
-}
+} */
 
 .container {
   display: flex;
@@ -68,7 +63,7 @@ body {
   align-items: center;
 }
 .nav-menu {
-  font-size: 2.4rem;
+  font-size: 2.8rem;
   font-weight: 240;
   flex-grow: 1;
   text-align: left;
@@ -122,13 +117,16 @@ body {
   color: #4f4a4a;
   font-weight: 200;
 }
-.excel {
+.filters {
   padding-bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.download-table-xls-button {
+.btn-copy {
   color: var(--black-0);
   font-size: 1.4rem;
-  font-weight: 250;
+  font-weight: 500;
   padding: 10px 10px;
   border: 0px black solid;
   border-radius: 30px;
@@ -137,24 +135,37 @@ body {
   width: auto;
   transition: all 0.3s;
 }
-.download-table-xls-button:hover {
-  color: var(--blue-0);
+.btn-copy:hover {
+  color: var(--white-0);
   background-color: var(--red-2);
-  outline: var(--blue-0) 1px solid;
+  outline: var(--white-0) 1px solid;
 }
-.filters {
-  padding-bottom: 0;
+.btn-copy-copied {
+  color: var(--white-0);
+  font-size: 1.4rem;
+  font-weight: 500;
+  padding: 10px 10px;
+  border: 0px black solid;
+  border-radius: 30px;
+  background-color: var(--red-2);
+  cursor: pointer;
+  width: auto;
+  transition: all 0.3s;
+}
+.btn-copy-copied:hover {
+  background-color: var(--red-3);
 }
 .btn-month {
   color: var(--black-0);
   font-size: 1.4rem;
   padding: 4px 15px;
-  border: 1px var(--black-1) solid;
+  border: 1px var(--black-0) solid;
   border-radius: 6px;
   background-color: var(--blue-5);
   box-shadow: 0 2px 0 rgb(0 0 0 / 3%);
   cursor: pointer;
   width: 125px;
+  height: 27px;
   transition: all 0.3s;
 }
 .btn-month:hover {

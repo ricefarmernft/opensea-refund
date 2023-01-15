@@ -1,8 +1,8 @@
 import useFetch from "../hooks/useFetch";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Transactions from "./Transactions";
 import Loader from "./Loader";
-import ReactHTMLTableToExcel from "react-html-table-to-excel";
+// import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import Web3 from "web3";
 
 const web3 = new Web3(
@@ -17,12 +17,11 @@ export default function Home() {
   const [filteredTransactions, setFilteredTransactions] = useState([]);
 
   const [sort, setSort] = useState(true);
+  const [copied, setCopied] = useState(false);
 
   const [address, setAddress] = useState();
 
-  const { get } = useFetch("https://api.etherscan.io/api");
-  const api = "FF3VM3BZW5NGH5HGRT3MKIK7HMZV6JR69P";
-  const totalEth = (eth.result * Math.pow(10, -18)).toFixed(3);
+  const tableRef = useRef(null);
 
   const openseaAddresses = [
     "0x7f268357a8c2552623316e2562d90e642bb538e5",
@@ -30,6 +29,10 @@ export default function Home() {
     "0x00000000006cee72100d161c57ada5bb2be1ca79",
     "0x7be8076f4ea4a4ad08075c2508e481d6c946d12b",
   ];
+
+  const { get } = useFetch("https://api.etherscan.io/api");
+  const api = "FF3VM3BZW5NGH5HGRT3MKIK7HMZV6JR69P";
+  const totalEth = (eth.result * Math.pow(10, -18)).toFixed(3);
 
   // Get address from ENS function
   async function getEnsOwner(ens) {
@@ -81,6 +84,7 @@ export default function Home() {
             (tx.isError === "1" && tx.to.includes(openseaAddresses[3]))
         );
         setLoading(false);
+        setCopied(false);
         setTransactions(failed);
         setFilteredTransactions(failed);
       })
@@ -115,6 +119,27 @@ export default function Home() {
     setSort(!sort);
   };
 
+  // Copy Table Button
+  const copyTable = () => {
+    const table = tableRef.current;
+    let tableValues = "";
+    for (let i = 0; i < table.rows.length; i++) {
+      let rowValues = "";
+      for (let j = 0; j < table.rows[i].cells.length; j++) {
+        rowValues += table.rows[i].cells[j].textContent + "\t";
+      }
+      tableValues += rowValues + "\n";
+    }
+
+    const el = document.createElement("textarea");
+    el.value = tableValues;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+    setCopied(true);
+  };
+
   // Formula for gas fee
   const totalGas = () => {
     let sum = 0;
@@ -130,7 +155,7 @@ export default function Home() {
       <div className="container instructions">
         <p>
           Input your ENS or Ethereum Address to receive your Opensea Refund
-          Total. Copy or download the table and forward it to the{" "}
+          Total. Copy the table to Excel or forward it to the{" "}
           <a
             href="https://support.opensea.io/hc/en-us/requests/new"
             target="_blank"
@@ -160,23 +185,19 @@ export default function Home() {
       {loading && <Loader />}
       {address && !loading && (
         <div className="body">
-          <div className="container excel">
-            <ReactHTMLTableToExcel
-              id="test-table-xls-button"
-              className="container download-table-xls-button"
-              table="table-to-xls"
-              filename="OSfailedtxs"
-              sheet="tablexls"
-              buttonText="Download as XLS"
-            />
-          </div>
           <div className="container filters">
             <button className="btn-month" onClick={handleDateSort}>
               {sort ? "Sort 30 Days" : "Show All"}
             </button>
+            <button
+              onClick={copyTable}
+              className={copied ? "btn-copy-copied" : "btn-copy"}
+            >
+              {copied ? "Copied" : "Copy Table"}
+            </button>
           </div>
           <div className="container transactions">
-            <table className="tx-table" id="table-to-xls">
+            <table ref={tableRef} className="tx-table" id="table-to-xls">
               <thead>
                 <tr>
                   <th>Date</th>
@@ -196,7 +217,8 @@ export default function Home() {
               </tbody>
               <tfoot>
                 <tr>
-                  <th colSpan="2">Total Fee :</th>
+                  <th colSpan="1"></th>
+                  <th colSpan="1">Total Fee Ξ</th>
                   <td>{totalGas().toFixed(5)}</td>
                 </tr>
               </tfoot>
