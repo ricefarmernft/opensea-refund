@@ -2,7 +2,6 @@ import useFetch from "../hooks/useFetch";
 import { useEffect, useState, useRef } from "react";
 import Transactions from "./Transactions";
 import Loader from "./Loader";
-// import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import Web3 from "web3";
 
 const web3 = new Web3(
@@ -53,6 +52,7 @@ export default function Home() {
     } else {
       console.log("Input not valid.");
       setAddress();
+      setSort(true);
       setLoading(false);
     }
   };
@@ -140,7 +140,7 @@ export default function Home() {
     setCopied(true);
   };
 
-  // Formula for gas fee
+  // Formula for total gas fee
   const totalGas = () => {
     let sum = 0;
     filteredTransactions.forEach((transaction) => {
@@ -179,7 +179,7 @@ export default function Home() {
       <div className="container total">
         <p>
           Gas Spent on Failed Opensea Tx's:{" "}
-          <strong>{totalGas().toFixed(5)} Ξ</strong>
+          <span>{totalGas().toFixed(5)} Ξ</span>
         </p>
       </div>
       {loading && <Loader />}
@@ -201,7 +201,7 @@ export default function Home() {
               <thead>
                 <tr>
                   <th>Date</th>
-                  <th>Tx Hash</th>
+                  <th className="th-hash">Tx Hash</th>
                   <th>Gas Fee Ξ</th>
                 </tr>
               </thead>
@@ -209,7 +209,7 @@ export default function Home() {
                 {filteredTransactions.map((transaction) => {
                   return (
                     <Transactions
-                      key={transaction.blockNumber}
+                      key={transaction.hash}
                       transaction={transaction}
                     />
                   );
@@ -217,9 +217,11 @@ export default function Home() {
               </tbody>
               <tfoot>
                 <tr>
-                  <th colSpan="1"></th>
-                  <th colSpan="1">Total Fee Ξ</th>
-                  <td>{totalGas().toFixed(5)}</td>
+                  <th className="th-empty" colSpan="1"></th>
+                  <th className="th-fee" colSpan="1">
+                    Total Fee Ξ
+                  </th>
+                  <th className="th-gas">{totalGas().toFixed(5)}</th>
                 </tr>
               </tfoot>
             </table>
