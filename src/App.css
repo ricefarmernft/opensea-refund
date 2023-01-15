@@ -244,16 +244,12 @@ tfoot td {
     padding-left: 1.4rem;
   }
   .nav-icons svg {
-    width: 1.6rem;
-    height: 1.6rem;
+    width: 2rem;
+    height: 2rem;
   }
   .total {
     padding-top: 0;
     padding-bottom: 0;
-  }
-  .dark-mode-icon {
-    width: 1.6rem;
-    height: 1.6rem;
   }
   /* Main */
   .home p {
