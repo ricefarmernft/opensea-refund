@@ -34,6 +34,9 @@ APIs:
 - Etherscan API
 - Alchemy API
 
+Apps:
+- Haikei Waves
+
 ## Vision
 
 My vision for this project was to showcase all of the Ethereum transactions that failed an interaction with the Opensea contracts by simply inputting your Ethereum address or ENS name. I wanted to display it in a simple table with the date, transaction hash, gas fee, and etherscan link. I also wanted to clearly display the total Opensea reimbursement amount as well as an option to copy the table to an Excel sheet or to the Opensea Help Center.
