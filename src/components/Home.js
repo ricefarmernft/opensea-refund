@@ -4,9 +4,9 @@ import Transactions from "./Transactions";
 import Loader from "./Loader";
 import Web3 from "web3";
 
-const web3 = new Web3(
-  "https://eth-mainnet.g.alchemy.com/v2/0ByceosjiOQZ9Ww_sr5oCCJL6Nmi8q1S"
-);
+const etherscanApi = `${process.env.REACT_APP_ETHERSCAN_API_KEY}`;
+const alchemyApi = `${process.env.REACT_APP_ALCHEMY_API_KEY}`;
+const web3 = new Web3(`https://eth-mainnet.g.alchemy.com/v2/${alchemyApi}`);
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -30,7 +30,6 @@ export default function Home() {
   ];
 
   const { get } = useFetch("https://api.etherscan.io/api");
-  const api = "FF3VM3BZW5NGH5HGRT3MKIK7HMZV6JR69P";
   const totalEth = (eth.result * Math.pow(10, -18)).toFixed(3);
 
   // Get address from ENS function
@@ -60,7 +59,7 @@ export default function Home() {
   // Fetch ETH Balance for input ETH address
   useEffect(() => {
     get(
-      `?module=account&action=balance&address=${address}&tag=latest&apikey=${api}`
+      `?module=account&action=balance&address=${address}&tag=latest&apikey=${etherscanApi}`
     )
       .then((data) => {
         setEth(data);
@@ -72,7 +71,7 @@ export default function Home() {
   // Fetch transactions for ETH address
   useEffect(() => {
     get(
-      `?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=1&offset=10000&sort=desc&apikey=${api}}`
+      `?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=1&offset=10000&sort=desc&apikey=${etherscanApi}}`
     )
       .then((data) => {
         // Sort data by failed TX and Opensea TX
