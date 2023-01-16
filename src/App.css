@@ -85,7 +85,7 @@ body {
 }
 /* Body */
 .instructions {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 300;
   padding: 0 3rem;
 }
@@ -272,6 +272,9 @@ body {
 
 @media (max-width: 655px) {
   /* Body */
+  .instructions {
+    font-size: 1.1rem;
+  }
   .home input {
     font-size: 1.4rem;
     margin-right: 1rem;
