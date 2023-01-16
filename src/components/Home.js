@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import Transactions from "./Transactions";
 import Loader from "./Loader";
 import Web3 from "web3";
+import ReactGA from "react-ga4";
 
 const etherscanApi = `${process.env.REACT_APP_ETHERSCAN_API_KEY}`;
 const alchemyApi = `${process.env.REACT_APP_ALCHEMY_API_KEY}`;
@@ -45,9 +46,17 @@ export default function Home() {
     if (input.endsWith(".eth")) {
       getEnsOwner(input);
       setLoading(true);
+      ReactGA.event({
+        category: "Input",
+        action: "ENS Input",
+      });
     } else if (input.length === 42) {
       setAddress(input);
       setLoading(true);
+      ReactGA.event({
+        category: "Input",
+        action: "Ethereum Address Input",
+      });
     } else {
       console.log("Input not valid.");
       setAddress();
