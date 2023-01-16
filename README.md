@@ -26,8 +26,9 @@ Languages:
 Dependencies:
 
 - React
-- AntD
+- Ant Design
 - web3.js
+- .env
 
 APIs:
 
