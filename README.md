@@ -1,4 +1,4 @@
-# Opensea Reimbursement
+# Opensea Refund
 
 The inspiration for this project came from a viral Twitter post I saw from [@CryptoXpresso](https://twitter.com/CryptoXpresso/status/1591218382216404992). I had learned that Opensea was offering refunds for those who had failed transactions on the platform.
 
