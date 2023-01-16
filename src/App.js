@@ -3,7 +3,9 @@ import { useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import ReactGA from "react-ga4";
-ReactGA.initialize("G-M7LYR3G3FT");
+
+const googleApi = `${process.env.REACT_APP_GOOGLE_API_KEY}`;
+ReactGA.initialize(googleApi);
 
 function App() {
   useEffect(() => {
