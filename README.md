@@ -29,6 +29,7 @@ Dependencies:
 - Ant Design
 - web3.js
 - .env
+- React Google Analytics 4
 
 APIs:
 
