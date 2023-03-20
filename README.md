@@ -12,10 +12,9 @@ Final Project:
 
 ![os-refund-final](https://user-images.githubusercontent.com/112427358/212579031-ef5fee26-263d-44df-ae3e-1cf5ed8d57b9.png)
 
-
 Check out the project: [osrefund.app](https://www.osrefund.app/)
 
-Read a more in depth-technical breakdown here: [ricefarmer.io/project/2](https://www.ricefarmer.io/project/2)
+Read a more in depth-technical breakdown here: [ricefarmer.io/project/2](https://www.ricefarmer.io/opensea-refund)
 
 Languages:
 
@@ -37,6 +36,7 @@ APIs:
 - Alchemy API
 
 Apps:
+
 - Haikei Waves
 
 ## Vision
